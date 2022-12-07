@@ -18,8 +18,10 @@ class Product(models.Model):
     # all fields subclass Field, become db columns
     title = models.CharField(max_length=100)
     price = models.FloatField()
+    count = models.IntegerField(default=1, null=False)
     collection = models.CharField(choices=COLLECTION_CHOICES, max_length=2)
     description = models.TextField(max_length=100)
+    # image = models.ImageField()
     '''
         www.example.com/product/23 --> references by id
         www.example.com/product/Bonanza Kamez Shalwar --> www.example.com/product/Bonanza%20Kamez%20Shalwar --> still not very meaningful
@@ -30,8 +32,14 @@ class Product(models.Model):
     def __str__(self):
         return f"{self.title}, {self.price}"
 
+class Cart(models.Model):
+    items = models.ManyToManyField(
+        'Product', related_name='carts'
+    )
+
 class Order(models.Model):
     pass
 
 class OrderItem(models.Model):
     pass
+

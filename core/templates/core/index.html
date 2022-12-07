@@ -1,0 +1,11 @@
+{% if prodList %}
+    <ul>
+    {% for prod in prodList %}
+    <li><a href="{% url 'detail' prod.id %}">{{ prod.title }}</a></li>
+    <a href="{% url 'detail' prod.id %}" class="btn btn-warning">Add to cart</a>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No products are available.</p>
+{% endif %}
+
