@@ -1,12 +1,14 @@
-{% extends 'base.html' %}
-{% if prodList %}
-    {% for prod in prodList %}
-        <div class="post-entry">
-            <h2><a href="{% url 'detail' prod.id %}">{{ prod.title }}</a></h2>
-            <a href="{% url 'detail' prod.id %}" class="btn btn-warning">Add to cart</a>
-        </div>
-    {% endfor %}
-{% else %}
-    <p>No products are available.</p>
-{% endif %}
+{% extends 'core/base.html' %}
+{% block content %}
+    {% if object_list %}
+        {% for prod in object_list %}
+            <div class="post-entry">
+                <h2><a href="{% url 'detail' prod.id %}">{{ prod.title }}</a></h2>
+                <a href="{% url 'detail' prod.id %}" class="btn btn-warning">Add to cart</a>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No products are available.</p>
+    {% endif %}
+{% endblock content %}
 

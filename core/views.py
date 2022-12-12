@@ -3,18 +3,26 @@ from django.http import Http404
 from django.http import HttpResponse
 from .models import Product
 from django.template import loader
+from django.views.generic import ListView, DetailView
 
-# Create your views here.
-def index(request):
-    prodList = Product.objects.all()
-    context = {
-        'prodList': prodList
-    }
-    return render(request, 'core/index.html', context)
+# def index(request):
+#     prodList = Product.objects.all()
+#     context = {
+#         'prodList': prodList
+#     }
+#     return render(request, 'core/index.html', context)
 
-def detail(request, prodId):
-    product = get_object_or_404(Product, id=prodId)
-    return render(request, 'core/detail.html', {'product': product})
+class ProductListView(ListView):
+    model = Product
+    template_name: str = 'core/index.html'
+
+class ProductDetailView(DetailView):
+    model = Product
+    template_name: str = 'core/detail.html'
+
+# def detail(request, prodId):
+#     product = get_object_or_404(Product, id=prodId)
+#     return render(request, 'core/detail.html', {'product': product})
 
 def cart(request):
     context = {}
