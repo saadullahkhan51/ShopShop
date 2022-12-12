@@ -1,3 +1,4 @@
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 COLLECTION_CHOICES = (
@@ -14,6 +15,9 @@ SIZE_CHOICES = ()
 COLOR_CHOICES = ()
 
 # Create your models here.
+class CustomUser(AbstractUser):
+    pass
+
 class Product(models.Model):
     # all fields subclass Field, become db columns
     title = models.CharField(max_length=100)
@@ -38,8 +42,9 @@ class Cart(models.Model):
     )
 
 class Order(models.Model):
-    pass
+    ref = models.CharField(max_length=20, null=True, blank=True)
+    # owner
+    items = models.ManyToManyField(Product)
 
 class OrderItem(models.Model):
     pass
-
